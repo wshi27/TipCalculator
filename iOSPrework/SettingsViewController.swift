@@ -12,11 +12,12 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var tip1TextField: UITextField!
     @IBOutlet weak var tip2TextField: UITextField!
     @IBOutlet weak var tip3TextField: UITextField!
-    @IBOutlet weak var darkModeToggle: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
+        
+        tip1TextField.becomeFirstResponder()
         
         //set up TapGestureRecognizer
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard(_:)))

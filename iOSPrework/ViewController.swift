@@ -21,6 +21,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Sets the title in the Navigation Bar
         self.title = "Tip Calculator"
+        
+        billAmountTextField.becomeFirstResponder()
+        billAmountTextField.delegate = self as? UITextFieldDelegate
+        
         defaults.set([0.15, 0.18, 0.2], forKey: "tipPercentages")
         
         //set up tapGestureRecognizer
@@ -30,6 +34,8 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(recognizer)
         view.isUserInteractionEnabled = true
     }
+    
+    //update tipControl titles can reclaculate tip when view appear again
     override func viewDidAppear(_ animated: Bool) {
         
         if(UserDefaults.standard.object(forKey: "tipPercentages") != nil){
@@ -44,16 +50,19 @@ class ViewController: UIViewController {
         calculateTip()
     }
     
+    //recalculate tip when tipControl segment has been changed
     @IBAction func changedTip(_ sender: Any) {
         calculateTip()
     }
     
-    
+    //dismiss keyboard when user tap anywhere on the screen
     @objc func dismissKeyboard(_ gesture: UITapGestureRecognizer){
         view.endEditing(true)
         calculateTip()
     }
     
+    
+    //function to recalculate tip
     @objc func calculateTip(){
         // Get bill amount from text field input
         let bill = Double(billAmountTextField.text!) ?? 0
@@ -70,4 +79,6 @@ class ViewController: UIViewController {
         totalLabel.text = String(format: "$%.2f", total)
     }
 }
+extension SettingsViewController: UITextFieldDelegate {
 
+}
